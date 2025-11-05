@@ -24,7 +24,7 @@
       border-radius: 16px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.1);
       text-align: center;
-      max-width: 480px; /* ✅ 微調寬度 */
+      max-width: 480px; 
       width: 100%;
       box-sizing: border-box;
     }
@@ -82,7 +82,7 @@
   <div class="card">
     <h1>Scrap a Day with Teatalk</h1>
     <p>寫下妳的生活碎片☕️讓茶香帶著它飄向遠方</p>
-    <textarea id="message" placeholder="發生了甚麼事呢？寫下來吧" required></textarea>
+    <textarea id="message" placeholder="今天的生活碎片是什麼呢~" required></textarea>
     <br>
     <button onclick="sendMessage()">匿名寄出</button>
     <div class="msg" id="status"></div>
@@ -105,7 +105,7 @@
       status.innerText = '寄出中...';
       emailjs.send('service_06asmk6', 'template_r03i3kd', { message: msg })
         .then(() => {
-          status.innerText = '願望已送出 ☕️';
+          status.innerText = '碎片已送出 ☕️';
           document.getElementById('message').value = '';
         })
         .catch((err) => {
@@ -116,3 +116,4 @@
   </script>
 </body>
 </html>
+
