@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scrap a Day with Teatalk</title>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <style>
+    body {
+      font-family: "Noto Sans TC", sans-serif;
+      background: linear-gradient(160deg, #f9f6f2 0%, #e8e1d6 100%);
+      color: #4a3728;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 1rem;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.9);
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      text-align: center;
+      max-width: 480px; /* ✅ 微調寬度 */
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      font-family: "Caveat", cursive;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    textarea {
+      display: block;
+      margin: 0 auto; 
+      width: 100%; 
+      min-height: 120px;
+      max-height: 300px; 
+      border-radius: 10px;
+      border: 1px solid #d1c7b9;
+      padding: 1rem;
+      font-size: 1rem;
+      resize: vertical; 
+      outline: none;
+      background: #fdfcfb;
+      box-sizing: border-box;
+    }
+
+    button {
+      background: #7b5c45;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: background 0.3s;
+    }
+
+    button:hover { background: #5e4532; }
+
+    .msg {
+      margin-top: 1rem;
+      color: #5e4532;
+      font-style: italic;
+    }
+
+    footer {
+      font-size: 0.8rem;
+      color: #8b7a6a;
+      margin-top: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Scrap a Day with Teatalk</h1>
+    <p>寫下妳的生活碎片☕️讓茶香帶著它飄向遠方</p>
+    <textarea id="message" placeholder="發生了甚麼事呢？寫下來吧" required></textarea>
+    <br>
+    <button onclick="sendMessage()">匿名寄出</button>
+    <div class="msg" id="status"></div>
+    <footer>妳的訊息將匿名寄給 <b>teatalkgirls@gmail.com</b></footer>
+  </div>
+
+  <script>
+    (function(){
+      emailjs.init('KjqEc7CbG1GgAsHZR');
+    })();
+
+    function sendMessage(){
+      const msg = document.getElementById('message').value.trim();
+      const status = document.getElementById('status');
+      if(!msg){
+        status.innerText = '今天的生活碎片是什麼呢～';
+        return;
+      }
+
+      status.innerText = '寄出中...';
+      emailjs.send('service_06asmk6', 'template_r03i3kd', { message: msg })
+        .then(() => {
+          status.innerText = '願望已送出 ☕️';
+          document.getElementById('message').value = '';
+        })
+        .catch((err) => {
+          console.error(err);
+          status.innerText = '寄出失敗，請稍後再試';
+        });
+    }
+  </script>
+</body>
+</html>
